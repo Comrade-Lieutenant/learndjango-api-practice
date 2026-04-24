@@ -23,5 +23,5 @@ class BookTest(TestCase):
     def test_book_listview(self):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response, "A Great Subtitle")
-        self.assertContains(response, "books/book_list.html")
+        self.assertContains(response, "A Great Subtitle")
+        self.assertTemplateUsed(response, "books/book_list.html")
