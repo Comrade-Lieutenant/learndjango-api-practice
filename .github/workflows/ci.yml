@@ -29,6 +29,10 @@ jobs:
         run: uv run ruff check .
 
       - name: Run Mypy
+        env:
+          PYTHONPATH: .
+          SECRET_KEY: "ci-dummy-key"
+          DATABASE_URL: "sqlite:///:memory:"
         run: uv run mypy .
 
   # JOB 2: Testing (Runs at the same time as Lint)
@@ -45,5 +49,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      - name: Run Pytest
-        run: uv run pytest
+      - name: Run Tests
+        env:
+          SECRET_KEY: "ci-dummy-key"
+        run: uv run python manage.py test
